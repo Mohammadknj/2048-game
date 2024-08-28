@@ -24,9 +24,10 @@ function setRandNum(matrix) {
           matrix[row][col].style.backgroundColor='#eee1c9'
           matrix[row][col].style.color='#776e65'
         } else {
-            matrix[row][col].textContent = 2;
-            matrix[row][col].style.backgroundColor='#eee4da'
-          matrix[row][col].style.color='#776e65'
+            //matrix[row][col].textContent = 2;
+        //     matrix[row][col].style.backgroundColor='#eee4da'
+        //   matrix[row][col].style.color='#776e65'
+            matrix[row][col].classList.add('number-2')
         }
         return;
       }
@@ -47,3 +48,4 @@ startButton.addEventListener("click", () => {
     setRandNum(Matrix)
   } else location.reload();
 });
+// startButton.classList.add("correct");
