@@ -109,12 +109,14 @@ td{
     color: #f9f6f2;
     transition: 0.3s;
 }
-.number-2{
-    background-color:'#eee4da';
-    color: '#776e65';
-    content: '2';
+.number2{
+    background-color:#eee4da;
+    color: #776e65;
 }
-
+.number4{
+    background-color:#eee1c9;
+    color: #776e65;
+}
 
 /* .correct{
     background-color: white;

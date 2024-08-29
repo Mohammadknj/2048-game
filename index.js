@@ -21,13 +21,10 @@ function setRandNum(matrix) {
         let random = Math.floor(Math.random() * 10);
         if (random == 7) {
           matrix[row][col].innerHTML = 4;
-          matrix[row][col].style.backgroundColor='#eee1c9'
-          matrix[row][col].style.color='#776e65'
+          matrix[row][col].classList.add('number4')
         } else {
-            //matrix[row][col].textContent = 2;
-        //     matrix[row][col].style.backgroundColor='#eee4da'
-        //   matrix[row][col].style.color='#776e65'
-            matrix[row][col].classList.add('number-2')
+          matrix[row][col].textContent = 2;
+          matrix[row][col].classList.add('number2')
         }
         return;
       }
@@ -45,7 +42,7 @@ startButton.addEventListener("click", () => {
       }
     }
     setRandNum(Matrix);
-    setRandNum(Matrix)
+    setRandNum(Matrix);
   } else location.reload();
 });
 // startButton.classList.add("correct");
