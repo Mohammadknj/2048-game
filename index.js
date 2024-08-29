@@ -52,7 +52,7 @@ function setRandNum(matrix) {
     let col = Math.floor(Math.random() * 4);
     if (matrix[row][col].innerHTML == "") {
       let random = Math.floor(Math.random() * 10);
-      if (random == 7 || random == 8 || random == 6 || random == 9) {
+      if (random == 7 || random == 8) {
         matrix[row][col].innerHTML = 4;
         matrix[row][col].classList.add("number4");
       } else {
@@ -74,9 +74,6 @@ startButton.addEventListener("click", () => {
         Matrix[i][j] = document.getElementById(`house ${i * 4 + j + 1}`);
       }
     }
-    setRandNum(Matrix);
-    setRandNum(Matrix);
-    setRandNum(Matrix);
     setRandNum(Matrix);
     setRandNum(Matrix);
     setRandNum(Matrix);
