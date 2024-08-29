@@ -13,23 +13,23 @@ function check_full_houses(matrix) {
   return true;
 }
 function setRandNum(matrix) {
-  if (!check_full_houses(matrix)) {
-    while (true) {
-      let row = Math.floor(Math.random() * 4);
-      let col = Math.floor(Math.random() * 4);
-      if (matrix[row][col].innerHTML == "") {
-        let random = Math.floor(Math.random() * 10);
-        if (random == 7 || random == 8 || random == 6 || random == 9) {
-          matrix[row][col].innerHTML = 4;
-          matrix[row][col].classList.add("number4");
-        } else {
-          matrix[row][col].textContent = 2;
-          matrix[row][col].classList.add("number2");
-        }
-        return;
+  // if (!check_full_houses(matrix)) {
+  while (true) {
+    let row = Math.floor(Math.random() * 4);
+    let col = Math.floor(Math.random() * 4);
+    if (matrix[row][col].innerHTML == "") {
+      let random = Math.floor(Math.random() * 10);
+      if (random == 7 || random == 8 || random == 6 || random == 9) {
+        matrix[row][col].innerHTML = 4;
+        matrix[row][col].classList.add("number4");
+      } else {
+        matrix[row][col].textContent = 2;
+        matrix[row][col].classList.add("number2");
       }
+      return;
     }
   }
+  // }
 }
 
 let Matrix = [[], [], [], []];
@@ -44,9 +44,27 @@ startButton.addEventListener("click", () => {
     }
     setRandNum(Matrix);
     setRandNum(Matrix);
+    setRandNum(Matrix);
+    setRandNum(Matrix);
+    setRandNum(Matrix);
+    setRandNum(Matrix);
   } else location.reload();
 });
-
+function colorSetter() {
+  console.log("inside");
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (Matrix[i][j].innerHTML == "") {
+        Matrix[i][j].classList = "";
+        Matrix[i][j].style.backgroundColor = "#b49959";
+      } else {
+        Matrix[i][j].classList = "";
+        Matrix[i][j].classList.add(`number${Matrix[i][j].innerHTML}`);
+      }
+      // Matrix[i][j].innerHTML
+    }
+  }
+}
 function goUp() {
   for (let j = 0; j < 4; j++) {
     for (let i = 1; i < 4; i++) {
@@ -82,6 +100,7 @@ function goUp() {
       }
     }
   }
+  console.log("upped");
 }
 function goDown() {
   for (let j = 0; j < 4; j++) {
@@ -118,6 +137,7 @@ function goDown() {
       }
     }
   }
+  console.log("downed");
 }
 function goRight() {
   for (let i = 0; i < 4; i++) {
@@ -154,6 +174,7 @@ function goRight() {
       }
     }
   }
+  console.log("righted");
 }
 function goLeft() {
   for (let i = 0; i < 4; i++) {
@@ -190,6 +211,7 @@ function goLeft() {
       }
     }
   }
+  console.log("lefted");
 }
 document.addEventListener("keydown", (key) => {
   if (started) {
@@ -207,5 +229,17 @@ document.addEventListener("keydown", (key) => {
       console.log("right arrow");
       goRight();
     }
+    let nft = [[], [], [], []];
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        nft[i][j] =
+          "inner: " +
+          Matrix[i][j].innerHTML +
+          " classes: " +
+          Matrix[i][j].classList;
+      }
+    }
+    console.log(nft);
+    colorSetter();
   }
 });

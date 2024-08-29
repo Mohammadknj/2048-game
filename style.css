@@ -107,14 +107,14 @@ td{
     justify-content: center;
     font-size: 55px;
     color: #f9f6f2;
-    transition: 0.3s;
+    /* transition: 0.3s; */
 }
 .number2{
     background-color:#eee4da;
     color: #776e65;
 }
 .number4{
-    background-color:#eee1c9;
+    background-color:#faa300;
     color: #776e65;
 }
 .number8{
