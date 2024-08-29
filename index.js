@@ -1,19 +1,52 @@
 let started = false;
 const startButton = document.getElementById("new-game-button");
-let Won = false;
+let finished = false;
+let score = document.getElementById("score");
+let messageBox = document.getElementsByClassName("message")[0];
+messageBox.style.display = "none";
 
-function check_full_houses(matrix) {
+function colorSetter() {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      if (matrix[i][j].innerHTML == "") {
-        return false;
+      Matrix[i][j].classList = "";
+      Matrix[i][j].classList = `number${Matrix[i][j].innerHTML}`;
+    }
+  }
+}
+function Check_won(Matrix) {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (Matrix[i][j].innerHTML == "2048") {
+        colorSetter();
+        finished = true;
+        messageBox.innerHTML = "You Won :))";
+        messageBox.style.display = "flex";
       }
     }
   }
-  return true;
+  return false;
+}
+function check_full_houses(Matrix) {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (Matrix[i][j].innerHTML == "") return;
+    }
+  }
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (Matrix[i][j].innerHTML == Matrix[i][j + 1].innerHTML) return;
+    }
+  }
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (Matrix[i][j].innerHTML == Matrix[i + 1][j].innerHTML) return;
+    }
+  }
+  finished = true;
+  messageBox.innerHTML = "You Lost :(";
+  messageBox.style.display = "flex";
 }
 function setRandNum(matrix) {
-  // if (!check_full_houses(matrix)) {
   while (true) {
     let row = Math.floor(Math.random() * 4);
     let col = Math.floor(Math.random() * 4);
@@ -29,7 +62,6 @@ function setRandNum(matrix) {
       return;
     }
   }
-  // }
 }
 
 let Matrix = [[], [], [], []];
@@ -50,21 +82,7 @@ startButton.addEventListener("click", () => {
     setRandNum(Matrix);
   } else location.reload();
 });
-function colorSetter() {
-  console.log("inside");
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      if (Matrix[i][j].innerHTML == "") {
-        Matrix[i][j].classList = "";
-        Matrix[i][j].style.backgroundColor = "#b49959";
-      } else {
-        Matrix[i][j].classList = "";
-        Matrix[i][j].classList.add(`number${Matrix[i][j].innerHTML}`);
-      }
-      // Matrix[i][j].innerHTML
-    }
-  }
-}
+
 function goUp() {
   for (let j = 0; j < 4; j++) {
     for (let i = 1; i < 4; i++) {
@@ -73,7 +91,7 @@ function goUp() {
           while (Matrix[k - 1][j].innerHTML == "") {
             Matrix[k - 1][j].innerHTML = Matrix[k][j].innerHTML;
             Matrix[k - 1][j].classList.add(`number${Matrix[k][j].innerHTML}`);
-            Matrix[k][j].classList.remove(`number${Matrix[k][j].innerHTML}`);
+            Matrix[k][j].classList = "";
             Matrix[k][j].innerHTML = "";
           }
         }
@@ -86,21 +104,21 @@ function goUp() {
         Matrix[i][j].innerHTML == Matrix[i - 1][j].innerHTML &&
         Matrix[i - 1][j].innerHTML != ""
       ) {
-        Matrix[i - 1][j].classList.remove(
-          `number${Matrix[i - 1][j].innerHTML}`
-        );
+        Matrix[i - 1][j].classList = "";
         Matrix[i - 1][j].innerHTML *= 2;
+        let num = Number(Matrix[i - 1][j].innerHTML) + Number(score.innerHTML);
+        score.innerHTML = num;
         Matrix[i - 1][j].classList.add(`number${Matrix[i - 1][j].innerHTML}`);
-        Matrix[i][j].classList.remove(`number${Matrix[i][j].innerHTML}`);
+        Matrix[i][j].classList = "";
         Matrix[i][j].innerHTML = "";
         for (let k = i; k < 3; k++) {
           Matrix[k][j].innerHTML = Matrix[k + 1][j].innerHTML;
           Matrix[k + 1][j].innerHTML = "";
         }
+        Check_won(Matrix);
       }
     }
   }
-  console.log("upped");
 }
 function goDown() {
   for (let j = 0; j < 4; j++) {
@@ -110,7 +128,7 @@ function goDown() {
           while (Matrix[k + 1][j].innerHTML == "") {
             Matrix[k + 1][j].innerHTML = Matrix[k][j].innerHTML;
             Matrix[k + 1][j].classList.add(`number${Matrix[k][j].innerHTML}`);
-            Matrix[k][j].classList.remove(`number${Matrix[k][j].innerHTML}`);
+            Matrix[k][j].classList = "";
             Matrix[k][j].innerHTML = "";
           }
         }
@@ -123,21 +141,21 @@ function goDown() {
         Matrix[i][j].innerHTML == Matrix[i + 1][j].innerHTML &&
         Matrix[i + 1][j].innerHTML != ""
       ) {
-        Matrix[i + 1][j].classList.remove(
-          `number${Matrix[i + 1][j].innerHTML}`
-        );
+        Matrix[i + 1][j].classList = "";
         Matrix[i + 1][j].innerHTML *= 2;
+        let num = Number(Matrix[i + 1][j].innerHTML) + Number(score.innerHTML);
+        score.innerHTML = num;
         Matrix[i + 1][j].classList.add(`number${Matrix[i + 1][j].innerHTML}`);
-        Matrix[i][j].classList.remove(`number${Matrix[i][j].innerHTML}`);
+        Matrix[i][j].classList = "";
         Matrix[i][j].innerHTML = "";
         for (let k = i; k >= 1; k--) {
           Matrix[k][j].innerHTML = Matrix[k - 1][j].innerHTML;
           Matrix[k - 1][j].innerHTML = "";
         }
+        Check_won(Matrix);
       }
     }
   }
-  console.log("downed");
 }
 function goRight() {
   for (let i = 0; i < 4; i++) {
@@ -147,7 +165,7 @@ function goRight() {
           while (Matrix[i][k + 1].innerHTML == "") {
             Matrix[i][k + 1].innerHTML = Matrix[i][k].innerHTML;
             Matrix[i][k + 1].classList.add(`number${Matrix[i][k].innerHTML}`);
-            Matrix[i][k].classList.remove(`number${Matrix[i][k].innerHTML}`);
+            Matrix[i][k].classList = "";
             Matrix[i][k].innerHTML = "";
           }
         }
@@ -160,21 +178,21 @@ function goRight() {
         Matrix[i][j].innerHTML == Matrix[i][j + 1].innerHTML &&
         Matrix[i][j + 1].innerHTML != ""
       ) {
-        Matrix[i][j + 1].classList.remove(
-          `number${Matrix[i][j + 1].innerHTML}`
-        );
+        Matrix[i][j + 1].classList = "";
         Matrix[i][j + 1].innerHTML *= 2;
+        let num = Number(Matrix[i][j + 1].innerHTML) + Number(score.innerHTML);
+        score.innerHTML = num;
         Matrix[i][j + 1].classList.add(`number${Matrix[i][j + 1].innerHTML}`);
-        Matrix[i][j].classList.remove(`number${Matrix[i][j].innerHTML}`);
+        Matrix[i][j].classList = "";
         Matrix[i][j].innerHTML = "";
         for (let k = j; k >= 1; k--) {
           Matrix[i][k].innerHTML = Matrix[i][k - 1].innerHTML;
           Matrix[i][k - 1].innerHTML = "";
         }
+        Check_won(Matrix);
       }
     }
   }
-  console.log("righted");
 }
 function goLeft() {
   for (let i = 0; i < 4; i++) {
@@ -184,7 +202,7 @@ function goLeft() {
           while (Matrix[i][k - 1].innerHTML == "") {
             Matrix[i][k - 1].innerHTML = Matrix[i][k].innerHTML;
             Matrix[i][k - 1].classList.add(`number${Matrix[i][k].innerHTML}`);
-            Matrix[i][k].classList.remove(`number${Matrix[i][k].innerHTML}`);
+            Matrix[i][k].classList = "";
             Matrix[i][k].innerHTML = "";
           }
         }
@@ -197,49 +215,35 @@ function goLeft() {
         Matrix[i][j].innerHTML == Matrix[i][j - 1].innerHTML &&
         Matrix[i][j - 1].innerHTML != ""
       ) {
-        Matrix[i][j - 1].classList.remove(
-          `number${Matrix[i][j - 1].innerHTML}`
-        );
+        Matrix[i][j - 1].classList = "";
         Matrix[i][j - 1].innerHTML *= 2;
+        let num = Number(Matrix[i][j - 1].innerHTML) + Number(score.innerHTML);
+        score.innerHTML = num;
         Matrix[i][j - 1].classList.add(`number${Matrix[i][j - 1].innerHTML}`);
-        Matrix[i][j].classList.remove(`number${Matrix[i][j].innerHTML}`);
+        Matrix[i][j].classList = "";
         Matrix[i][j].innerHTML = "";
         for (let k = j; k < 3; k++) {
           Matrix[i][k].innerHTML = Matrix[i][k + 1].innerHTML;
           Matrix[i][k + 1].innerHTML = "";
         }
+        Check_won(Matrix);
       }
     }
   }
-  console.log("lefted");
 }
 document.addEventListener("keydown", (key) => {
-  if (started) {
-    console.log(key);
+  if (started && !finished) {
     if (key.code == "ArrowUp") {
-      console.log("up arrow");
       goUp();
     } else if (key.code == "ArrowDown") {
-      console.log("down arrow");
       goDown();
     } else if (key.code == "ArrowLeft") {
-      console.log("left arrow");
       goLeft();
     } else if (key.code == "ArrowRight") {
-      console.log("right arrow");
       goRight();
     }
-    let nft = [[], [], [], []];
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        nft[i][j] =
-          "inner: " +
-          Matrix[i][j].innerHTML +
-          " classes: " +
-          Matrix[i][j].classList;
-      }
-    }
-    console.log(nft);
     colorSetter();
+    setRandNum(Matrix);
+    check_full_houses(Matrix);
   }
 });
