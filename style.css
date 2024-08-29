@@ -117,11 +117,44 @@ td{
     background-color:#eee1c9;
     color: #776e65;
 }
-
-/* .correct{
-    background-color: white;
-    color: #2ecc71;
-    border:solid 2.5px #2ecc71;
-    text-align: center;
-    font-size: 22px;
-} */
+.number8{
+    background-color: #f3b27a;
+    color: #f9f6f2;
+}
+.number16{
+    background-color: #f69664;
+    color: #f9f6f2;
+}
+.number32{
+    background-color: #f77c5f;
+    color: #f9f6f2;
+}
+.number64{
+    background-color: #f75f3b;
+    color: #f9f6f2;
+}
+.number128{
+    background-color: #edd073;
+    color: #f9f6f2;
+    font-size: 45px;
+}
+.number256{
+    background-color: #ceb257;
+    color: #f9f6f2;
+    font-size: 45px;
+}
+.number512{
+    background-color: #965518;
+    color: #f9f6f2;
+    font-size: 45px;
+}
+.number1024{
+    background-color: #d1662d;
+    color: #f9f6f2;
+    font-size: 35px;
+}
+.number2048{
+    background-color: #ffae00;
+    color: #f9f6f2;
+    font-size: 35px;
+}
