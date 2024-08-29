@@ -21,10 +21,10 @@ function setRandNum(matrix) {
         let random = Math.floor(Math.random() * 10);
         if (random == 7) {
           matrix[row][col].innerHTML = 4;
-          matrix[row][col].classList.add('number4')
+          matrix[row][col].classList.add("number4");
         } else {
           matrix[row][col].textContent = 2;
-          matrix[row][col].classList.add('number2')
+          matrix[row][col].classList.add("number2");
         }
         return;
       }
@@ -36,6 +36,7 @@ startButton.addEventListener("click", () => {
   let Matrix = [[], [], [], []];
   if (!started) {
     started = true;
+    startButton.innerHTML = "New Game";
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         Matrix[i][j] = document.getElementById(`house ${i * 4 + j + 1}`);
@@ -45,4 +46,18 @@ startButton.addEventListener("click", () => {
     setRandNum(Matrix);
   } else location.reload();
 });
-// startButton.classList.add("correct");
+
+document.addEventListener("keydown", (key) => {
+  if (started) {
+    console.log(key)
+    if (key.code == "ArrowUp") {
+      console.log("up arrow");
+    } else if (key.code == "ArrowDown") {
+      console.log("down arrow");
+    } else if (key.code == "ArrowLeft") {
+      console.log("left arrow");
+    } else if (key.code == "ArrowRight") {
+      console.log("right arrow");
+    }
+  }
+});
